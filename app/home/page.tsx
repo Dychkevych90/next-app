@@ -21,7 +21,6 @@ const Home = async () => {
         <div className='container mx-auto items-center gap-10 columns-3 flex'>
           {
             posts.map((item: any) => {
-              console.log('item', item)
               return (
                 <Card key={item?.id}>
                   <CardHeader>
