@@ -9,9 +9,9 @@ const TheHeader = () => {
   console.log('session', session)
   
   return (
-    <header className='flex items-center justify-between p-4 gap-5 bg-zinc-600 w-full'>
+    <header className='flex items-center justify-between p-4 gap-5 bg-stone-950 w-full'>
       <div>
-        <Link className='text-cyan-50' href='/home'>Home</Link>
+        <Link className='text-cyan-50 font-bold text-1xl' href='/home'>Home</Link>
         {/*<Link href='/blog'>Posts</Link>*/}
       </div>
       
@@ -28,7 +28,7 @@ const TheHeader = () => {
         
         <button
           onClick={() => signOut()}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-cyan-50">
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Logout
         </button>
       </div>

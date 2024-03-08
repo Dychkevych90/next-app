@@ -1,4 +1,5 @@
 import {serverClient} from "@/client";
+import AddPostDialog from "@/components/addPostDialog";
 
  const  Blog = async () => {
    const todos = await serverClient.postList();
@@ -18,3 +19,4 @@ import {serverClient} from "@/client";
 }
 
 export default Blog
+

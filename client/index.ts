@@ -32,6 +32,6 @@ export const serverClient = appRouter.createCaller({
 // //    ^?
 // console.log('Users:', users);
 //
-// const user = await trpc.byId.query('65eacfc270a7e756cc386360');
+// const user = await serverClient.getById('65eacfc270a7e756cc386360');
 // //    ^?
 // console.log('User 1:', user);

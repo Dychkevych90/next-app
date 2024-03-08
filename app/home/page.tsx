@@ -1,4 +1,9 @@
+"use client";
+
 import React from "react";
+import Link from "next/link";
+
+import AddPostDialog from "@/components/addPostDialog";
 
 import {
   Card,
@@ -8,21 +13,35 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {prisma} from "@/lib/prisma";
-import Link from "next/link";
-import Image from "next/image";
 
-const Home = async () => {
-  const posts = await prisma.post.findMany();
+import {trpc} from "@/client/client";
+import {useSession} from "next-auth/react";
+import {redirect} from "next/navigation";
+
+const Home = () => {
+  const {data: posts, isLoading} = trpc.postList.useQuery();
+  const { status } = useSession();
+  
+  if(isLoading){
+    return <div>Loading...</div>
+  }
+  
+  if (status === "unauthenticated") {
+    return redirect('/')
+  }
   
   return (
     <>
       <div className="flex flex-col items-center justify-between p-24">
-        <div className='container mx-auto items-center gap-10 columns-3 flex'>
+        <div className="container mb-5">
+          <AddPostDialog/>
+        </div>
+        
+        <div className='container mx-auto grid grid-cols-3 gap-4'>
           {
-            posts.map((item: any) => {
+            posts?.map((item: any) => {
               return (
-                <Card key={item?.id}>
+                <Card key={item?.id} className='bg-lime-400'>
                   <CardHeader>
                     {/*<Image*/}
                     {/*  src={item.image }*/}
@@ -31,18 +50,22 @@ const Home = async () => {
                     {/*  height={500}*/}
                     {/*/>*/}
                     
-                    <img src={item.image } alt="image"/>
+                    {/*<img src={item.image } alt="image"/>*/}
                   </CardHeader>
                   
-                  <CardContent>
-                    <CardTitle className='mb-4'>{item.title}</CardTitle>
-                    <CardDescription>{item?.desc}</CardDescription>
+                  <CardContent className='max-h-52 min-h-52'>
+                    <CardTitle className='mb-4 truncate'>{item.title}</CardTitle>
+                    <CardDescription
+                      className='line-clamp-5'
+                    >
+                      {item?.desc}
+                    </CardDescription>
                   </CardContent>
                   
                   <CardFooter>
                     <Link
                       href={`/home/${item.id}`}
-                      className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                      className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded border-none">
                       more
                     </Link>
                   </CardFooter>
