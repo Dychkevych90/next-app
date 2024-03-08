@@ -53,6 +53,18 @@ export const appRouter = router({
         result: result,
       };
     }),
+  deletePost: publicProcedure
+    .input( z.object({
+      id: z.string()
+    }))
+    .mutation(async ({ input }) => {
+      
+      return prisma.post.delete({
+        where: {
+          id: input.id,
+        }
+      });
+    }),
 });
 export type AppRouter = typeof appRouter
 
