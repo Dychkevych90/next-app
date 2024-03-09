@@ -1,5 +1,4 @@
 import {GoogleSignInButton} from "@/components/googleSignInButton";
-import {useSession} from "next-auth/react";
 
 export default function Login() {
   return (

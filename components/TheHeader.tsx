@@ -5,14 +5,12 @@ import {signOut, useSession} from "next-auth/react";
 import React from "react";
 
 const TheHeader = () => {
-  const {data: session, status} = useSession();
-  console.log('session', session)
+  const {data: session} = useSession();
   
   return (
     <header className='flex items-center justify-between p-4 gap-5 bg-stone-950 w-full'>
       <div>
         <Link className='text-cyan-50 font-bold text-1xl' href='/home'>Home</Link>
-        {/*<Link href='/blog'>Posts</Link>*/}
       </div>
       
       <div className="flex items-center justify-center">

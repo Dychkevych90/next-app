@@ -8,6 +8,7 @@ export const createUserSchema = z.object({
 export const createPostSchema = z.object({
   title: z.string(),
   desc: z.string(),
+  image: z.string()
 })
 
 export type createUserSchema = z.TypeOf<typeof createUserSchema>

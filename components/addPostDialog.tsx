@@ -24,6 +24,8 @@ import {
 
 import { trpc } from "@/client/client";
 
+import UploadImage from "@/components/uploadImage";
+
 const formSchema = z.object({
   title: z.string().min(5, {
     message: "title must be at least 5 characters.",
@@ -31,6 +33,7 @@ const formSchema = z.object({
   desc: z.string().min(5, {
     message: "description must be at least 5 characters.",
   }),
+  //image: z.string()
 })
 
 export default function AddPostDialog() {
@@ -43,6 +46,7 @@ export default function AddPostDialog() {
   });
   
   const [open, setOpen] = useState(false);
+  const [ changePhoto, setChangePhoto ] = useState( '' );
   
   const { refetch } = trpc.postList.useQuery();
   const mutation = trpc.createPost.useMutation();
@@ -55,8 +59,12 @@ export default function AddPostDialog() {
       setOpen(false)
     }
   }, [status])
-  const handleSubmit = (values: z.infer<typeof formSchema>) =>
-    mutation.mutate(values);
+  const handleSubmit = (values: z.infer<typeof formSchema>) => {
+    const newPost = {...values, image:changePhoto}
+    console.log('newPost', newPost, 'values', values)
+    
+    newPost && mutation.mutate(newPost)
+  }
   
   return(
     <Dialog open={open} onOpenChange={setOpen}>
@@ -74,6 +82,8 @@ export default function AddPostDialog() {
           <DialogTitle>ADD POST</DialogTitle>
         </DialogHeader>
         
+        <UploadImage setChangePhoto={setChangePhoto}/>
+        
         <div className="grid gap-4 py-4">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -89,9 +99,9 @@ export default function AddPostDialog() {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage/>
                   </FormItem>
-              }}
+                }}
               />
               
               <FormField
@@ -106,7 +116,7 @@ export default function AddPostDialog() {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage/>
                   </FormItem>
                 }}
               />

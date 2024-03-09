@@ -39,12 +39,13 @@ export const appRouter = router({
   createPost: publicProcedure
     .input(createPostSchema)
     .mutation(async ({ input }) => {
-      const { title, desc } = input
-      
+      const { title, desc, image } = input
+     
       const result = await prisma.post.create({
         data: {
           title,
           desc,
+          image,
         },
       });
       return {
@@ -67,9 +68,3 @@ export const appRouter = router({
     }),
 });
 export type AppRouter = typeof appRouter
-
-// const server = createHTTPServer({
-//   router: appRouter,
-// });
-//
-// server.listen(3000);
