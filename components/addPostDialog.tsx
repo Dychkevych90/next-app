@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea"
 import {
   Form,
   FormControl,
@@ -25,6 +26,7 @@ import {
 import { trpc } from "@/client/client";
 
 import UploadImage from "@/components/uploadImage";
+import {Cog8ToothIcon, PencilSquareIcon} from '@heroicons/react/24/outline'
 
 const formSchema = z.object({
   title: z.string().min(5, {
@@ -32,8 +34,7 @@ const formSchema = z.object({
   }),
   desc: z.string().min(5, {
     message: "description must be at least 5 characters.",
-  }),
-  //image: z.string()
+  })
 })
 
 export default function AddPostDialog() {
@@ -71,9 +72,13 @@ export default function AddPostDialog() {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+          className='w-32 bg-green-500 hover:bg-green-400 text-black py-2 px-4 rounded border-none text-center max-h-10 flex items-center justify-center'
         >
-          ADD POST
+          New post
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 28 28" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-1.5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"/>
+          </svg>
         </Button>
       </DialogTrigger>
       
@@ -91,7 +96,7 @@ export default function AddPostDialog() {
                 control={form.control}
                 name='title'
                 render={({field}) => {
-                  return <FormItem>
+                  return <FormItem className='mb-5'>
                     <FormLabel>Title</FormLabel>
                     <FormControl>
                       <Input
@@ -111,10 +116,7 @@ export default function AddPostDialog() {
                   return <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input
-                        type='text'
-                        {...field}
-                      />
+                      <Textarea {...field}/>
                     </FormControl>
                     <FormMessage/>
                   </FormItem>
@@ -123,7 +125,7 @@ export default function AddPostDialog() {
               
               <Button
                 type="submit"
-                className='w-full mt-5'
+                className='w-full mt-5 bg-green-500 hover:bg-green-300 text-black'
               >
                 Save
               </Button>

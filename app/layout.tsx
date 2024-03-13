@@ -1,5 +1,3 @@
-import {TheHeader} from "@/components/TheHeader";
-import {TheFooter} from "@/components/TheFooter";
 import { NextAuthProvider } from "./providers";
 
 import Provider from "../client/provider";
@@ -14,12 +12,10 @@ export  default function RootLayout({
 
   return (
     <html lang="en">
-      <body className='min-h-screen flex items-center justify-between flex-col'>
+      <body className='min-h-screen flex items-center justify-between flex-col '>
         <NextAuthProvider>
           <Provider>
-            <TheHeader/>
-              <main>{children}</main>
-            <TheFooter/>
+            <main className='w-full min-h-screen justify-center'>{children}</main>
           </Provider>
         </NextAuthProvider>
       </body>

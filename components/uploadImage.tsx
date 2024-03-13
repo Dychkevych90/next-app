@@ -1,8 +1,12 @@
 "use client";
 
-import {Dispatch, SetStateAction, useState} from "react";
+import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from "firebase/storage";
 import app from "@/app/firebase";
+
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Progress } from "@/components/ui/progress"
 
 type uploadImageTypes = {
   setChangePhoto: Dispatch<SetStateAction<string>>;
@@ -50,12 +54,14 @@ const UploadImage = ({setChangePhoto}: uploadImageTypes) => {
   
   return(
     <>
-      <input
-        type="file"
-        name="file"
-        onChange={handleImageUpload}
-      />
-      <div>{`Upload is ${progress} % done`}</div>
+      <div className="grid w-full max-w-sm items-center gap-1.5 cursor-pointer relative">
+        <Label htmlFor="picture">Image</Label>
+        <Input id="picture" type="file" onChange={handleImageUpload}/>
+      </div>
+      
+      {
+        progress !== 0 && <Progress value={progress} className="w-[100%]" />
+      }
     </>
   )
 }

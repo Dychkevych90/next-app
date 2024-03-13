@@ -52,6 +52,10 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        green: {
+          500: 'rgba(82, 184, 156, 1)',
+          400: 'rgba(89, 226, 189, 1)',
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -71,6 +75,9 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      fontFamily: {
+        display: ['Oswald'],
       },
     },
   },
